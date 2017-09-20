@@ -1,0 +1,154 @@
+<template name="weeklyTrack">
+    <h4>Breakfast</h4>
+    <table class="table">
+      <thead>
+      <tr>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Serving Size</th>
+          <th>Protein</th>
+          <th>Carbs</th>
+          <th>Fats</th>
+          <th>KCal</th>
+      </tr>
+      </thead>
+      <tbody>
+        {{#each getNumberRows "breakfast"}}
+        <tr>
+          <td>{{> foodDropdown type="breakfast"}}</td>
+          <td><input type="text" class="quantity" id="{{this}}_quantity_breakfast" name="quantity"></td>
+          <td>{{getBreakfastFood.serving_size}}</td>
+          <td>{{getBreakfastFood.protein}}</td>
+          <td>{{getBreakfastFood.carbs}}</td>
+          <td>{{getBreakfastFood.fats}}</td>
+          <td>{{getBreakfastFood.calories}}</td>
+          <td>
+              <button type="button" class="no-border-button" aria-label="Close">
+                <span>&#x274C;</span>
+              </button>
+          </td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{getSum "protein" "breakfast"}}</td>
+          <td>{{getSum "carbs" "breakfast"}}</td>
+          <td>{{getSum "fats" "breakfast"}}</td>
+          <td>{{getSum "calories" "breakfast"}}</td>
+          <td>
+            <button type="button" class="btn btn-default" id="breakfast-btn" style="float: right;">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+
+        <h4>Snacks</h4>
+        {{#each getNumberRows "snacks"}}
+        <tr>
+          <td>{{> foodDropdown type="snacks"}}</td>
+          <td><input type="text" class="quantity" id="{{this}}_quantity_snacks" name="quantity"></td>
+          <td>{{getSnackFood.serving_size}}</td>
+          <td>{{getSnackFood.protein}}</td>
+          <td>{{getSnackFood.carbs}}</td>
+          <td>{{getSnackFood.fats}}</td>
+          <td>{{getSnackFood.calories}}</td>
+          <td>
+              <button type="button" class="no-border-button" aria-label="Close">
+                <span>&#x274C;</span>
+              </button>
+          </td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{getSum "protein" "snacks"}}</td>
+          <td>{{getSum "carbs" "snacks"}}</td>
+          <td>{{getSum "fats" "snacks"}}</td>
+          <td>{{getSum "calories" "snacks"}}</td>
+          <td>
+            <button type="button" class="btn btn-default" id="snacks-btn" style="float: right;">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        
+        <h4>Lunch</h4>
+        {{#each getNumberRows "lunch"}}
+        <tr>
+          <td>{{> foodDropdown type="lunch"}}</td>
+          <td><input type="text" class="quantity" id="{{this}}_quantity_lunch" name="quantity"></td>
+          <td>{{getLunchFood.serving_size}}</td>
+          <td>{{getLunchFood.protein}}</td>
+          <td>{{getLunchFood.carbs}}</td>
+          <td>{{getLunchFood.fats}}</td>
+          <td>{{getLunchFood.calories}}</td>
+          <td>
+              <button type="button" class="no-border-button" aria-label="Close">
+                <span>&#x274C;</span>
+              </button>
+          </td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{getSum "protein" "lunch"}}</td>
+          <td>{{getSum "carbs" "lunch"}}</td>
+          <td>{{getSum "fats" "lunch"}}</td>
+          <td>{{getSum "calories" "lunch"}}</td>
+          <td>
+            <button type="button" class="btn btn-default" id="lunch-btn" style="float: right;">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+
+        <h4>Dinner</h4>
+        {{#each getNumberRows "dinner"}}
+        <tr>
+          <td>{{> foodDropdown type="dinner"}}</td>
+          <td><input type="text" class="quantity" id="{{this}}_quantity_dinner" name="quantity"></td>
+          <td>{{getDinnerFood.serving_size}}</td>
+          <td>{{getDinnerFood.protein}}</td>
+          <td>{{getDinnerFood.carbs}}</td>
+          <td>{{getDinnerFood.fats}}</td>
+          <td>{{getDinnerFood.calories}}</td>
+          <td>
+              <button type="button" class="no-border-button" aria-label="Close">
+                <span>&#x274C;</span>
+              </button>
+          </td>
+          
+        </tr>
+        {{/each}}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{getSum "protein" "dinner"}}</td>
+          <td>{{getSum "carbs" "dinner"}}</td>
+          <td>{{getSum "fats" "dinner"}}</td>
+          <td>{{getSum "calories" "dinner"}}</td>
+          <td>
+            <button type="button" class="btn btn-default" id="dinner-btn" style="float: right;">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td></td>
+          <td></td>
+          <td>{{getTotalSum "protein"}}</td>
+          <td>{{getTotalSum "carbs"}}</td>
+          <td>{{getTotalSum "fats"}}</td>
+          <td>{{getTotalSum "calories"}}</td>
+        </tr>
+      </tbody>
+    </table>
+</template>

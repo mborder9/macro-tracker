@@ -1,0 +1,139 @@
+<template name="layout">
+	<div class="container">
+		{{> header}}
+		<div id="main">
+			{{> yield}}
+		</div> 
+	</div>
+</template>
+
+<template name="layout_login">
+  <div class="container">
+    {{> header_login}}
+    <div id="main">
+      {{> yield}}
+    </div> 
+  </div>
+</template>
+
+<template name="layout_register">
+  <div class="container">
+    {{> header_register}}
+    <div id="main">
+      {{> yield}}
+    </div> 
+  </div>
+</template>
+
+<template name="layout_no_header">
+  {{> yield}}
+
+  <div id="log"></div>
+</template>
+
+<template name="startup">
+   <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <form class="login-register">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Login/Register</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group col-lg-12">
+                            <button type="button" class="btn btn-link btn-block"><a href="{{pathFor 'Login'}}">Login</a></button>
+                        </div>
+                        <div class="form-group col-lg-12">
+                             <button type="button" class="btn btn-link btn-block">Register</button>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                       
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<template name="signin">
+  <div class="signin">
+    <div class="login-form">
+      <h1>Sign In</h1>
+      {{> loginButtons}}
+    </div>
+  </div>
+</template>
+
+<template name="awaiting-verification">
+  <h1>Awaiting email verification...</h1>
+</template>
+
+
+<template name="register">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="register-form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Registration</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{#if error}}<div class="alert alert-danger" role="alert"> {{error}}</div>{{/if}}
+                        <div class="form-group col-lg-12">
+                            <label>Email</label>
+                            <input type="email"  class="form-control" id="email" value="">
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label>Name</label>
+                            <input type="text" name="" class="form-control" id="firstname" value="">
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label>Last Name</label>
+                            <input type="text" name="" class="form-control" id="lastname" value="">
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label>Password</label>
+                            <input type="password" name="" class="form-control" id="password" value="">
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<template name="login">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <form class="login-form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Login</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group col-lg-12">
+                            <label>Email</label>
+                            <input type="email"  class="form-control" id="email" value="">
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label>Password</label>
+                            <input type="password" name="" class="form-control" id="password" value="">
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

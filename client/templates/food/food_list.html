@@ -1,0 +1,21 @@
+<template name="foodList">
+	<div class="foods">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Food</th>
+					<th>Serving Size</th>
+					<th>Protein</th>
+					<th>Carbs</th>
+					<th>Fats</th>
+					<th>Calories</th>	
+				</tr>
+			</thead>
+			<tbody>
+				{{#each foods}}
+					{{> foodItem}}
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>

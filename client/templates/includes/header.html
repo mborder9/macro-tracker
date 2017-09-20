@@ -1,0 +1,65 @@
+<template name="header">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapsed" data-target="#navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{pathFor 'foodList'}}">Keto Tracker</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navigation">
+			<ul class="nav navbar-nav">
+				<li><a href="{{pathFor 'weeklyTrack'}}">Weekly Tracker</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{{> loginButtons}}
+			</ul>
+		</div>
+	</nav>
+</template>
+
+<template name="header_login">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapsed" data-target="#navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{pathFor 'foodList'}}">Keto Tracker</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navigation">
+			<ul class="nav navbar-nav">
+				<li><a href="{{pathFor 'weeklyTrack'}}">Weekly Tracker</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{{pathFor 'Register'}}">Register</a></li>
+			</ul>
+		</div>
+	</nav>
+</template>
+
+<template name="header_register">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapsed" data-target="#navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{pathFor 'foodList'}}">Keto Tracker</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navigation">
+			<ul class="nav navbar-nav">
+				<li><a href="{{pathFor 'weeklyTrack'}}">Weekly Tracker</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{{pathFor 'Login'}}">Login</a></li>
+			</ul>
+		</div>
+	</nav>
+</template>

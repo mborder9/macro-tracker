@@ -1,0 +1,10 @@
+<template name="foodDropdown">
+	<form class="dropdown_{{type}}" id="{{..}}_drop">
+		<select>
+			<option disabled selected value></option>
+			{{#each foods}}
+				<option value="{{this.food}}">{{this.food}}</option>
+			{{/each}}
+		</select>
+	</form>
+</template>
