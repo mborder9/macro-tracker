@@ -1,5 +1,9 @@
 <template name="foodList">
 	<div class="foods">
+		<button type="button" class="btn btn-default" id="add-btn">Add new Entry</button>
+		{{#if addNewEntry}}
+			{{> foodSubmit}}
+		{{/if}}
 		<table class="table">
 			<thead>
 				<tr>
