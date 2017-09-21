@@ -13,8 +13,13 @@
 			<ul class="nav navbar-nav">
 				<li><a href="{{pathFor 'weeklyTrack'}}">Weekly Tracker</a></li>
 			</ul>
+			{{#if isInRole 'admin'}}
+				<ul class="nav navbar-nav">
+					<li><a href="/admin">Admin</a></li>
+				</ul>
+			{{/if}}
 			<ul class="nav navbar-nav navbar-right">
-				{{> loginButtons}}
+				<li><a href="{{pathFor 'SignOut'}}">Sign Out</a></li>
 			</ul>
 		</div>
 	</nav>
