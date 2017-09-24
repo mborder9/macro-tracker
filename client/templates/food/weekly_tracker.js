@@ -1,85 +1,73 @@
+function setNutrition(meal, row, value){
+	Session.set(meal+'_'+row, value);
+	Session.set(meal+'_'+row+'_protein', Foods.findOne({food:value}).protein);
+	Session.set(meal+'_'+row+'_carbs', Foods.findOne({food:value}).carbs);
+	Session.set(meal+'_'+row+'_fats', Foods.findOne({food:value}).fats);
+	Session.set(meal+'_'+row+'_calories', Foods.findOne({food:value}).calories);
+}
+
 Template.foodDropdown.events({
 	'change .dropdown_breakfast' (event) {
-		console.log("Breakfast change EVENT!!");
 		var id = event.currentTarget.id;
-		var num = id.split(/_/)[0];
-		console.log('Breakfast change setting breakfast_'+num+' equal to'+event.target.value);
-		console.log(Foods.findOne({food:event.target.value}).protein);
-		Session.set('breakfast_'+num, event.target.value);
-		Session.set('breakfast_'+num+'_protein',Foods.findOne({food:event.target.value}).protein);
-		Session.set('breakfast_'+num+'_carbs',Foods.findOne({food:event.target.value}).carbs);
-		Session.set('breakfast_'+num+'_fats',Foods.findOne({food:event.target.value}).fats);
-		Session.set('breakfast_'+num+'_calories',Foods.findOne({food:event.target.value}).calories);
+		var row = id.split(/_/)[0];
+		var meal = "breakfast";
+		var value = event.target.value;
+		setNutrition(meal,row,value);
 	},
 	'change .dropdown_snacks' (event) {
 		var id = event.currentTarget.id;
-		var num = id.split(/_/)[0];
-		Session.set('snacks_'+num, event.target.value);
-		Session.set('snacks_'+num+'_protein',Foods.findOne({food:event.target.value}).protein);
-		Session.set('snacks_'+num+'_carbs',Foods.findOne({food:event.target.value}).carbs);
-		Session.set('snacks_'+num+'_fats',Foods.findOne({food:event.target.value}).fats);
-		Session.set('snacks_'+num+'_calories',Foods.findOne({food:event.target.value}).calories);
+		var row = id.split(/_/)[0];
+		var meal = "snacks";
+		var value = event.target.value;
+		setNutrition(meal,row,value);
 	},
 	'change .dropdown_lunch' (event) {
 		var id = event.currentTarget.id;
-		var num = id.split(/_/)[0];
-		Session.set('lunch_'+num, event.target.value);
-		Session.set('lunch_'+num+'_protein',Foods.findOne({food:event.target.value}).protein);
-		Session.set('lunch_'+num+'_carbs',Foods.findOne({food:event.target.value}).carbs);
-		Session.set('lunch_'+num+'_fats',Foods.findOne({food:event.target.value}).fats);
-		Session.set('lunch_'+num+'_calories',Foods.findOne({food:event.target.value}).calories);
+		var row = id.split(/_/)[0];
+		var meal = "lunch";
+		var value = event.target.value;
+		setNutrition(meal,row,value);
 	},
 	'change .dropdown_dinner' (event) {
 		var id = event.currentTarget.id;
-		var num = id.split(/_/)[0];
-		Session.set('dinner_'+num, event.target.value);
-		Session.set('dinner_'+num+'_protein',Foods.findOne({food:event.target.value}).protein);
-		Session.set('dinner_'+num+'_carbs',Foods.findOne({food:event.target.value}).carbs);
-		Session.set('dinner_'+num+'_fats',Foods.findOne({food:event.target.value}).fats);
-		Session.set('dinner_'+num+'_calories',Foods.findOne({food:event.target.value}).calories);
+		var row = id.split(/_/)[0];
+		var meal = "dinner";
+		var value = event.target.value;
+		setNutrition(meal,row,value);
 	}
 });
 
 Template.weeklyTrack.events({
 	'click #breakfast-btn' (event) {
 		var rows = Session.get('breakfast_NumberRows');
-		console.log(rows)
 		Session.set('breakfast_NumberRows', rows+1);
 		var newRow = rows+1;
-		Session.set('breakfast_'+newRow+'_protein',0);
-		Session.set('breakfast_'+newRow+'_carbs',0);
-		Session.set('breakfast_'+newRow+'_fats',0);
-		Session.set('breakfast_'+newRow+'_calories',0);
+		var meal = "breakfast";
+		setNutrition(meal,newRow,0);
 	},
 	'click #snacks-btn' (event) {
 		var rows = Session.get('snacks_NumberRows');
 		console.log(rows)
 		Session.set('snacks_NumberRows', rows+1);
 		var newRow = rows+1;
-		Session.set('snacks_'+newRow+'_protein',0);
-		Session.set('snacks_'+newRow+'_carbs',0);
-		Session.set('snacks_'+newRow+'_fats',0);
-		Session.set('snacks_'+newRow+'_calories',0);
+		var meal = "snacks";
+		setNutrition(meal,newRow,0);
 	},
 	'click #lunch-btn' (event) {
 		var rows = Session.get('lunch_NumberRows');
 		console.log(rows)
 		Session.set('lunch_NumberRows', rows+1);
 		var newRow = rows+1;
-		Session.set('lunch_'+newRow+'_protein',0);
-		Session.set('lunch_'+newRow+'_carbs',0);
-		Session.set('lunch_'+newRow+'_fats',0);
-		Session.set('lunch_'+newRow+'_calories',0);
+		var meal = "lunch";
+		setNutrition(meal,newRow,0);
 	},
 	'click #dinner-btn' (event) {
 		var rows = Session.get('dinner_NumberRows');
 		console.log(rows)
 		Session.set('dinner_NumberRows', rows+1);
 		var newRow = rows+1;
-		Session.set('dinner_'+newRow+'_protein',0);
-		Session.set('dinner_'+newRow+'_carbs',0);
-		Session.set('dinner_'+newRow+'_fats',0);
-		Session.set('dinner_'+newRow+'_calories',0);
+		var meal = "dinner";
+		setNutrition(meal,newRow,0);
 	},
 	'input .quantity' (event) {
 		var id = event.currentTarget.id;
