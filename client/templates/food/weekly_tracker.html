@@ -1,5 +1,11 @@
 <template name="weeklyTrack">
-    <h4>Breakfast</h4>
+    <button type="button" class="no-border-button" aria-label="Close">
+      <span class="arrow">&lt;</span>
+    </button>
+    <h3 id="date-heading">{{getCurrentDate}}</h3>
+    <button type="button" class="no-border-button" aria-label="Close">
+      <span class="arrow">&gt;</span>
+    </button>
     <table class="table">
       <thead>
       <tr>
@@ -13,6 +19,7 @@
       </tr>
       </thead>
       <tbody>
+        <h4>Breakfast</h4>
         {{#each getNumberRows "breakfast"}}
         <tr>
           <td>{{> foodDropdown type="breakfast"}}</td>
@@ -23,7 +30,7 @@
           <td>{{getBreakfastFood.fats}}</td>
           <td>{{getBreakfastFood.calories}}</td>
           <td>
-              <button type="button" class="no-border-button" aria-label="Close">
+              <button type="button" class="no-border-button" aria-label="Close" id="breakfast-delete">
                 <span>&#x274C;</span>
               </button>
           </td>
@@ -55,7 +62,7 @@
           <td>{{getSnackFood.fats}}</td>
           <td>{{getSnackFood.calories}}</td>
           <td>
-              <button type="button" class="no-border-button" aria-label="Close">
+              <button type="button" class="no-border-button" aria-label="Close" id="snacks-delete">
                 <span>&#x274C;</span>
               </button>
           </td>
@@ -87,7 +94,7 @@
           <td>{{getLunchFood.fats}}</td>
           <td>{{getLunchFood.calories}}</td>
           <td>
-              <button type="button" class="no-border-button" aria-label="Close">
+              <button type="button" class="no-border-button" aria-label="Close" id="lunch-delete">
                 <span>&#x274C;</span>
               </button>
           </td>
@@ -119,7 +126,7 @@
           <td>{{getDinnerFood.fats}}</td>
           <td>{{getDinnerFood.calories}}</td>
           <td>
-              <button type="button" class="no-border-button" aria-label="Close">
+              <button type="button" class="no-border-button" aria-label="Close" id="dinner-delete">
                 <span>&#x274C;</span>
               </button>
           </td>

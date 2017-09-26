@@ -1,13 +1,43 @@
 function setNutrition(meal, row, value){
-	Session.set(meal+'_'+row, value);
-	Session.set(meal+'_'+row+'_protein', Foods.findOne({food:value}).protein);
-	Session.set(meal+'_'+row+'_carbs', Foods.findOne({food:value}).carbs);
-	Session.set(meal+'_'+row+'_fats', Foods.findOne({food:value}).fats);
-	Session.set(meal+'_'+row+'_calories', Foods.findOne({food:value}).calories);
+	
+	if(value !== 0){
+		Session.set(meal+'_'+row, value);
+		Session.set(meal+'_'+row+'_protein', Foods.findOne({food:value}).protein);
+		Session.set(meal+'_'+row+'_carbs', Foods.findOne({food:value}).carbs);
+		Session.set(meal+'_'+row+'_fats', Foods.findOne({food:value}).fats);
+		Session.set(meal+'_'+row+'_calories', Foods.findOne({food:value}).calories);
+	}else{
+		Session.set(meal+'_'+row, '');
+		Session.set(meal+'_'+row+'_protein', 0);
+		Session.set(meal+'_'+row+'_carbs', 0);
+		Session.set(meal+'_'+row+'_fats', 0);
+		Session.set(meal+'_'+row+'_calories', 0);
+	}
+		
+}
+
+function deleteRow(meal, row, numRows){
+	var element = "";
+	for (var i = row; i < numRows; i++ ) {
+		 var nxt = i+1;
+		 Session.set(meal+'_'+i, Session.get(meal+'_'+nxt));
+         Session.set(meal+'_'+i+'_protein', Session.get(meal+'_'+nxt+'_protein'));
+         Session.set(meal+'_'+i+'_carbs', Session.get(meal+'_'+nxt+'_carbs'));
+         Session.set(meal+'_'+i+'_fats', Session.get(meal+'_'+nxt+'_fats'));
+         Session.set(meal+'_'+i+'_calories', Session.get(meal+'_'+nxt+'_calories'));
+         Session.set(meal+'_'+i+'_quantity', Session.get(meal+'_'+nxt+'_quantity'));
+         element = document.getElementById(i+'_select');
+    	 element.value = Session.get(meal+'_'+nxt);
+    	 element = document.getElementById(i+'_quantity_'+meal);
+    	 element.value = Session.get(meal+'_'+nxt+'_quantity');
+	}
+    Session.set(meal+'_NumberRows', numRows-1);
+    
 }
 
 Template.foodDropdown.events({
 	'change .dropdown_breakfast' (event) {
+		console.log("Changing dropdown_breakfast");
 		var id = event.currentTarget.id;
 		var row = id.split(/_/)[0];
 		var meal = "breakfast";
@@ -44,6 +74,7 @@ Template.weeklyTrack.events({
 		var newRow = rows+1;
 		var meal = "breakfast";
 		setNutrition(meal,newRow,0);
+		console.log("reading new row value - row"+newRow+" "+Session.get('breakfast_'+newRow));
 	},
 	'click #snacks-btn' (event) {
 		var rows = Session.get('snacks_NumberRows');
@@ -75,6 +106,22 @@ Template.weeklyTrack.events({
 		var type = id.split(/_/)[2];
 		console.log("Setting quantity of "+type+" row"+num+" to"+event.currentTarget.value);
     	Session.set(type+'_'+num+'_quantity', event.currentTarget.value);
+  	},
+  	'click #breakfast-delete' (event){
+  		var rows = Session.get('breakfast_NumberRows');
+		deleteRow("breakfast",this, rows);
+  	},
+  	'click #snacks-delete' (event){
+  		var rows = Session.get('snacks_NumberRows');
+		deleteRow("snacks",this, rows);
+  	},
+  	'click #lunch-delete' (event){
+  		var rows = Session.get('lunch_NumberRows');
+		deleteRow("lunch",this, rows);
+  	},
+  	'click #dinner-delete' (event){
+  		var rows = Session.get('dinner_NumberRows');
+		deleteRow("dinner",this, rows);
   	}
 });
 
@@ -156,6 +203,21 @@ Template.weeklyTrack.helpers({
 
 		Session.set("total_"+nutrient, total);
 		return total.toFixed(2);
+	},
+	getCurrentDate: function(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+    		dd='0'+dd;
+		} 
+		if(mm<10){
+   			mm='0'+mm;
+		} 
+		var today = mm+'/'+dd+'/'+yyyy;
+		return today;
 	}
 });
 

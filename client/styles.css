@@ -3,3 +3,9 @@
 	padding: 0;
 	background: none;
 }
+#date-heading {
+	display: inline-block;
+}
+.arrow {
+	font-size: 200%;
+}
