@@ -35,6 +35,72 @@ function deleteRow(meal, row, numRows){
     
 }
 
+function saveData(){
+	var data = userHistory.findOne({user: Meteor.user()._id, date: Session.get('currentDate')});
+	userHistory.remove({_id: data._id});
+
+	var breakfast = Session.get('breakfast_NumberRows');
+	var breakfast_arr = [];
+	for (var i=0; i < breakfast; i++){
+		breakfast_arr.push({
+			food: Session.get('breakfast_'+i),
+			quantity: Session.get('breakfast_'+i+'_quantity'),
+		})
+	}
+
+	var snacks = Session.get('snacks_NumberRows');
+	var snacks_arr = [];
+	for (var i=0; i < snacks; i++){
+		snacks_arr.push({
+			food: Session.get('snacks_'+i),
+			quantity: Session.get('snacks_'+i+'_quantity'),
+		})
+	}
+
+	var lunch = Session.get('lunch_NumberRows');
+	var lunch_arr = [];
+	for (var i=0; i < lunch; i++){
+		lunch_arr.push({
+			food: Session.get('lunch_'+i),
+			quantity: Session.get('lunch_'+i+'_quantity'),
+		})
+	}
+
+	var dinner = Session.get('dinner_NumberRows');
+	var dinner_arr = [];
+	for (var i=0; i < dinner; i++){
+		dinner_arr.push({
+			food: Session.get('dinner_'+i),
+			quantity: Session.get('dinner_'+i+'_quantity'),
+		})
+	}
+
+	userHistory.insert({
+		date: Session.get('currentDate'),
+		user: Meteor.user()._id,
+		breakfast: breakfast_arr,
+		snacks: snacks_arr,
+		lunch: lunch_arr,
+		dinner: dinner_arr
+	});
+}
+
+function getCurrentDate(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+		dd='0'+dd;
+	} 
+	if(mm<10){
+			mm='0'+mm;
+	} 
+	var today = mm+'/'+dd+'/'+yyyy;
+	return today;
+}
+
 Template.foodDropdown.events({
 	'change .dropdown_breakfast' (event) {
 		console.log("Changing dropdown_breakfast");
@@ -122,6 +188,9 @@ Template.weeklyTrack.events({
   	'click #dinner-delete' (event){
   		var rows = Session.get('dinner_NumberRows');
 		deleteRow("dinner",this, rows);
+  	},
+  	'click #save-btn' (event){
+  		saveData();
   	}
 });
 
@@ -205,27 +274,15 @@ Template.weeklyTrack.helpers({
 		return total.toFixed(2);
 	},
 	getCurrentDate: function(){
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
-
-		var yyyy = today.getFullYear();
-		if(dd<10){
-    		dd='0'+dd;
-		} 
-		if(mm<10){
-   			mm='0'+mm;
-		} 
-		var today = mm+'/'+dd+'/'+yyyy;
-		return today;
+		return Session.get("currentDate");
 	}
 });
 
 Template.weeklyTrack.onCreated(function() {
-    Session.set('breakfast_NumberRows', 1);      // <---
-    Session.set('snacks_NumberRows', 1); 
-    Session.set('lunch_NumberRows', 1); 
-    Session.set('dinner_NumberRows', 1);
+    Session.set('breakfast_NumberRows', 0);      // <---
+    Session.set('snacks_NumberRows', 0); 
+    Session.set('lunch_NumberRows', 0); 
+    Session.set('dinner_NumberRows', 0);
 
     Session.set('breakfast_0_protein',0);
 	Session.set('breakfast_0_carbs',0);
@@ -250,6 +307,8 @@ Template.weeklyTrack.onCreated(function() {
 	Session.set('dinner_0_fats',0);
 	Session.set('dinner_0_calories',0);
 	Session.set('dinner_0_quantity',0);
+
+	Session.set('currentDate', getCurrentDate());
     console.log('Template.body.onCreated');  
 });
 
