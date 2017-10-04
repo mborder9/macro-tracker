@@ -1,7 +1,7 @@
 <template name="foodDropdown">
 	<form class="dropdown_{{type}}" id="{{..}}_drop">
-		<select id="{{..}}_select">
-			<option disabled selected value></option>
+		<select id="{{..}}_select" value="{{getCurrentValue .. type}}">
+			<option selected="selected">{{getCurrentValue .. type}}</option>
 			{{#each foods}}
 				<option value="{{this.food}}">{{this.food}}</option>
 			{{/each}}

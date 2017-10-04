@@ -1,9 +1,9 @@
 <template name="weeklyTrack">
-    <button type="button" class="no-border-button" aria-label="Close">
+    <button type="button" class="no-border-button" id="left-btn" aria-label="Close">
       <span class="arrow">&lt;</span>
     </button>
     <h3 id="date-heading">{{getCurrentDate}}</h3>
-    <button type="button" class="no-border-button" aria-label="Close">
+    <button type="button" class="no-border-button" id ="right-btn" aria-label="Close">
       <span class="arrow">&gt;</span>
     </button>
     <table class="table">
@@ -23,7 +23,7 @@
         {{#each getNumberRows "breakfast"}}
         <tr>
           <td>{{> foodDropdown type="breakfast"}}</td>
-          <td><input type="text" class="quantity" id="{{this}}_quantity_breakfast" name="quantity"></td>
+          <td><input type="text" class="quantity" id="{{this}}_quantity_breakfast" name="quantity" value="{{getCurrentQuantity this "breakfast"}}"></td>
           <td>{{getBreakfastFood.serving_size}}</td>
           <td>{{getBreakfastFood.protein}}</td>
           <td>{{getBreakfastFood.carbs}}</td>
