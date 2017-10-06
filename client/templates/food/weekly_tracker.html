@@ -1,4 +1,6 @@
 <template name="weeklyTrack">
+  <div class="row">
+     <div class="col-md-6">
     <button type="button" class="no-border-button" id="left-btn" aria-label="Close">
       <span class="arrow">&lt;</span>
     </button>
@@ -159,4 +161,10 @@
       </tbody>
     </table>
     <button type="button" class="btn btn-default" id="save-btn">Save</button>
+  </div>
+  <div class="col-sm-1"></div>
+  <div class="col-md-5">
+    <canvas id="macro-chart"></canvas>
+  </div>
+</div>
 </template>

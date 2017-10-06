@@ -1,3 +1,5 @@
+
+
 function setNutrition(meal, row, value){
 	
 	if(value !== 0){
@@ -263,10 +265,53 @@ function updateTotalSum(){
 		var DinnerSum = parseFloat(Session.get("dinner_"+nutrient+"_sum"));
 
 		var total = BreakfastSum + SnacksSum + LunchSum + DinnerSum;
-
+		var total = total.toFixed(2);
+		
 		Session.set("total_"+nutrient, total);
 		console.log("Total for "+nutrient+" = "+total);
 	});
+}
+
+function generateChart(){
+	Tracker.autorun(function () {
+		var ctx  = document.getElementById("macro-chart").getContext("2d");
+		var data = [];
+		var nutrients = ["protein", "carbs", "fats"];
+		nutrients.forEach(function(nutrient) {
+			data.push(Session.get("total_"+nutrient));
+		});
+		var myChart = new Chart(ctx, {
+		  type: 'pie',
+		  data: {
+		    labels: ["protein", "carbs", "fats"],
+		    datasets: [{
+		      backgroundColor: [
+		        "#2ecc71",
+		        "#3498db",
+		        "#95a5a6"
+		      ],
+		      data: data
+		    }]
+		  },
+		  options: {
+		  	responsive: true
+		  }
+		});
+	});
+
+		/*console.log(ctx);
+		var data = [];
+		var nutrients = ["protein", "carbs", "fats", "calories"];
+		nutrients.forEach(function(nutrient) {
+			data.push(Session.get("total_"+nutrient));
+		});
+		console.log("In onRendered, data array = "+data);
+		// For a pie chart
+		var myPieChart = new Chart(ctx,{
+		    type: 'pie',
+		    data: data,
+		    options: {}
+		});*/
 }
 
 Template.foodDropdown.events({
@@ -277,7 +322,6 @@ Template.foodDropdown.events({
 		var meal = "breakfast";
 		var value = event.target.value;
 		setNutrition(meal,row,value);
-	
 	},
 	'change .dropdown_snacks' (event) {
 		var id = event.currentTarget.id;
@@ -474,6 +518,12 @@ Template.weeklyTrack.onCreated(function() {
 	updateSum("dinner");
     console.log('Template.body.onCreated');  
 });
+
+Template.weeklyTrack.rendered = function() {
+	var Chart = require('../../../node_modules/chart.js/src/chart.js');
+	generateChart();
+};
+
 
 Template.weeklyTrack.created = function() {
   this.reload = new ReactiveVar();
